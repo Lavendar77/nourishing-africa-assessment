@@ -33,7 +33,7 @@
 
                         <Alert v-if="$page.props.flash.message" :message="$page.props.flash.message" variant="success" />
 
-                        <Alert v-if="$page.props.companies.length < 1" message="No companies registered yet" variant="warning" />
+                        <Alert v-if="$page.props.companies.length < 1" message="No companies found!" variant="info" />
 
                         <div class="flex">
                             <div

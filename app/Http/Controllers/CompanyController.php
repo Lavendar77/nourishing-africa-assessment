@@ -40,11 +40,11 @@ class CompanyController extends Controller
      */
     public function store(StoreCompanyRequest $request)
     {
-        throw_if(
-            $request->user()->companies()->count() >= 3,
-            \Exception::class,
-            'You cannot have more than 3 companies'
-        );
+        if ($request->user()->companies()->count() >= 3) {
+            return redirect()->back()->withErrors([
+                'create' => trans('validation.companies.max', ['max' => 3]),
+            ]);
+        }
 
         $this->company->query()->create([
             'user_id' => $request->user()->id,

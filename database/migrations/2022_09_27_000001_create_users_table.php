@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
+            $table->uuid('id')->primary();
             $table->foreignId('country_id')->constrained();
             $table->string('name');
             $table->string('email')->unique();

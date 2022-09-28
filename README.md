@@ -10,3 +10,4 @@ A simple CRUD system with user authentication and company management.
 ## Todo
 1. Write README
 2. Run fresh installation and test again
+3. Upload to Heroku

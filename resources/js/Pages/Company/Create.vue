@@ -29,13 +29,13 @@
 
                             <div class="mt-4">
                                 <InputLabel for="name" value="Name" />
-                                <TextInput id="name" type="text" class="mt-1 block w-full" v-model="form.name" required autocomplete="name" />
+                                <TextInput id="name" type="text" class="mt-1 block w-full" v-model="form.name" required />
                                 <InputError class="mt-2" :message="form.errors.name" />
                             </div>
 
                             <div class="mt-4">
                                 <InputLabel for="email" value="Email" />
-                                <TextInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autocomplete="username" />
+                                <TextInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required />
                                 <InputError class="mt-2" :message="form.errors.email" />
                             </div>
 

@@ -2,7 +2,13 @@
     <GuestLayout>
         <Head title="Register" />
 
-        <ValidationErrors :errors="$page.props.errors" />
+        <Alert v-if="Object.keys($page.props.errors).length" message="Validation Errors" variant="warning">
+            <ul>
+                <li v-for="error in $page.props.errors" :key="error">
+                    {{ error }}
+                </li>
+            </ul>
+        </Alert>
 
         <form @submit.prevent="submit">
             <div>
@@ -61,9 +67,8 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import SelectInput from '@/Components/SelectInput.vue';
-import ValidationErrors from '@/Components/ValidationErrors.vue';
+import Alert from '@/Components/Alert.vue';
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
-import { onMounted } from '@vue/runtime-core';
 
 const form = useForm({
     country_id: '',

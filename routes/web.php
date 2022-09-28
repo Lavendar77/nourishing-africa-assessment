@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -31,6 +32,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
+    Route::post('companies/{company}/restore', [CompanyController::class, 'restore'])
+        ->name('companies.restore')
+        ->withTrashed();
+    Route::resource('companies', CompanyController::class)->except(['index', 'show']);
 });
 
 require __DIR__ . '/auth.php';

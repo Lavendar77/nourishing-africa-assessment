@@ -13,6 +13,13 @@ class DashboardController extends Controller
      */
     public function __invoke()
     {
-        return Inertia::render('Dashboard');
+        /** @var \App\Models\User $user */
+        $user = auth()->user();
+
+        $companies = $user->companies()->with('country:id,name')->withTrashed()->get();
+
+        return Inertia::render('Dashboard', [
+            'companies' => $companies,
+        ]);
     }
 }

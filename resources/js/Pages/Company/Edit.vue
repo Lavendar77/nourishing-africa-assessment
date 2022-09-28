@@ -1,10 +1,10 @@
 <template>
-    <Head title="Profile" />
+    <Head title="Edit Company" />
 
     <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Profile
+                Edit Company - {{ company.name }}
             </h2>
         </template>
 
@@ -12,8 +12,6 @@
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 bg-white border-b border-gray-200">
-                        <h1 class="text-center">Update your Profile</h1>
-
                         <Alert v-if="Object.keys($page.props.errors).length" message="Validation Errors" variant="warning">
                             <ul>
                                 <li v-for="error in $page.props.errors" :key="error">
@@ -22,34 +20,28 @@
                             </ul>
                         </Alert>
 
-                        <form @submit.prevent="updateProfile">
+                        <form @submit.prevent="update">
                             <div>
                                 <InputLabel for="country_id" value="Country" />
-                                <SelectInput id="country_id" :modelOptions="$page['props']['countries']" textField="name" valueField="id" class="mt-1 block w-full" v-model="profileForm.country_id" required />
-                                <InputError class="mt-2" :message="profileForm.errors.country_id" />
+                                <SelectInput id="country_id" :modelOptions="$page['props']['countries']" textField="name" valueField="id" class="mt-1 block w-full" v-model="form.country_id" required />
+                                <InputError class="mt-2" :message="form.errors.country_id" />
                             </div>
 
                             <div class="mt-4">
                                 <InputLabel for="name" value="Name" />
-                                <TextInput id="name" type="text" class="mt-1 block w-full" v-model="profileForm.name" required autocomplete="name" />
-                                <InputError class="mt-2" :message="profileForm.errors.name" />
+                                <TextInput id="name" type="text" class="mt-1 block w-full" v-model="form.name" required autocomplete="name" />
+                                <InputError class="mt-2" :message="form.errors.name" />
                             </div>
 
                             <div class="mt-4">
                                 <InputLabel for="email" value="Email" />
-                                <TextInput id="email" type="email" class="mt-1 block w-full" v-model="profileForm.email" required autocomplete="username" />
-                                <InputError class="mt-2" :message="profileForm.errors.email" />
-                            </div>
-
-                            <div class="mt-4">
-                                <InputLabel for="mobile" value="Mobile Number" />
-                                <TextInput id="mobile" type="tel" class="mt-1 block w-full" v-model="profileForm.mobile" required autocomplete="mobile" />
-                                <InputError class="mt-2" :message="profileForm.errors.mobile" />
+                                <TextInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autocomplete="username" />
+                                <InputError class="mt-2" :message="form.errors.email" />
                             </div>
 
                             <div class="flex items-center justify-end mt-4">
-                                <PrimaryButton class="ml-4" :class="{ 'opacity-25': profileForm.processing }" :disabled="profileForm.processing">
-                                    Update Profile
+                                <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                                    Update Company
                                 </PrimaryButton>
                             </div>
                         </form>
@@ -70,33 +62,33 @@ import TextInput from '@/Components/TextInput.vue';
 import SelectInput from '@/Components/SelectInput.vue';
 import Alert from '@/Components/Alert.vue';
 import { Head, useForm, usePage } from '@inertiajs/inertia-vue3';
-import { computed } from 'vue';
+import { computed } from '@vue/runtime-core';
 
-const profileForm = useForm({
+const form = useForm({
     country_id: '',
     name: '',
     email: '',
-    mobile: '',
 });
 
-const user = computed(() => usePage().props.value.auth.user);
+const company = computed(() => usePage().props.value.company);
 </script>
 
 <script>
 export default {
     methods: {
-        fillProfileForm() {
-            this.profileForm.country_id = this.user.country_id;
-            this.profileForm.name = this.user.name;
-            this.profileForm.mobile = this.user.mobile;
-            this.profileForm.email = this.user.email;
+        fillForm() {
+            this.form.country_id = this.company.country_id;
+            this.form.name = this.company.name;
+            this.form.email = this.company.email;
         },
-        updateProfile() {
-            this.profileForm.put(route('profile.update'));
+        update() {
+            this.form.put(route('companies.update', { 'company': this.company.id }), {
+                onSuccess: () => this.form.reset(),
+            });
         }
     },
     mounted() {
-        this.fillProfileForm();
+        this.fillForm();
     }
 }
 </script>

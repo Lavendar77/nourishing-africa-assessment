@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
+            $table->foreignId('country_id')->constrained();
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('country');
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -38,7 +38,7 @@ onMounted(() => {
             :value="valueField ? modelOption[valueField] : modelOption.value"
             v-for="(modelOption, index) in modelOptions"
             :key="index"
-            :selected="modelValue == modelOption"
+            :selected="modelValue == (valueField ? modelOption[valueField] : modelOption.value)"
         >
             {{ textField ? modelOption[textField] : modelOption.text }}
         </option>

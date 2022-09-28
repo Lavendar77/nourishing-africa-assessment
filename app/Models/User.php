@@ -52,6 +52,20 @@ class User extends Authenticatable
     ];
 
     /**
+     * Perform any actions required after the model boots.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::updating(function (self $user) {
+            if ($user->isDirty(['email'])) {
+                $user->email_verified_at = null;
+            }
+        });
+    }
+
+    /**
      * Get the user's country.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

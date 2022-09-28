@@ -30,7 +30,6 @@ class User extends Authenticatable
         'email',
         'password',
         'mobile',
-        'country',
     ];
 
     /**
@@ -60,5 +59,15 @@ class User extends Authenticatable
     public function country()
     {
         return $this->belongsTo(Country::class);
+    }
+
+    /**
+     * Get the companies owned by the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function companies()
+    {
+        return $this->hasMany(User::class);
     }
 }

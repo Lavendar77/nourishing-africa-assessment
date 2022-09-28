@@ -12,7 +12,9 @@
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 bg-white border-b border-gray-200">
-                        <h1 class="text-center">Update your Profile</h1>
+                        <h1 class="font-bold text-xl mb-4 text-center text-gray-800">Update your Profile</h1>
+
+                        <Alert v-if="$page.props.flash.message" :message="$page.props.flash.message" variant="success" />
 
                         <Alert v-if="Object.keys($page.props.errors).length" message="Validation Errors" variant="warning">
                             <ul>

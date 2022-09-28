@@ -53,6 +53,8 @@ class CompanyController extends Controller
             'email' => $request->email,
         ]);
 
+        session()->flash('message', 'Company created successfully');
+
         return redirect(RouteServiceProvider::HOME);
     }
 
@@ -89,6 +91,8 @@ class CompanyController extends Controller
             'email' => $request->email,
         ]);
 
+        session()->flash('message', 'Company updated successfully');
+
         return redirect(RouteServiceProvider::HOME);
     }
 
@@ -104,6 +108,8 @@ class CompanyController extends Controller
 
         $company->delete();
 
+        session()->flash('message', 'Company deleted successfully');
+
         return redirect(RouteServiceProvider::HOME);
     }
 
@@ -118,6 +124,8 @@ class CompanyController extends Controller
         $this->authorize('restore', $company);
 
         $company->restore();
+
+        session()->flash('message', 'Company restored successfully');
 
         return redirect(RouteServiceProvider::HOME);
     }

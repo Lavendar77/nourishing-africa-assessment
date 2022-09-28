@@ -19,6 +19,8 @@
                             </Link>
                         </h1>
 
+                        <Alert v-if="$page.props.flash.message" :message="$page.props.flash.message" variant="success" />
+
                         <Alert v-if="$page.props.companies.length < 1" message="No companies registered yet" variant="warning" />
 
                         <div class="flex">

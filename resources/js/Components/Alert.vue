@@ -32,7 +32,7 @@ export default {
 </script>
 
 <template>
-    <div :class="`bg-${color}-100 border-l-4 border-${color}-500 text-${color}-700 p-4`" role="alert">
+    <div :class="`bg-${color}-100 border-l-4 border-${color}-500 text-${color}-700 p-4 my-4`" role="alert">
         <p class="font-bold">{{ message }}</p>
 
         <slot></slot>

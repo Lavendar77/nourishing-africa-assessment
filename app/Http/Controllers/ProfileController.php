@@ -38,6 +38,8 @@ class ProfileController extends Controller
             'mobile' => $request->mobile,
         ]);
 
+        session()->flash('message', 'Profile updated successfully');
+
         return redirect()->route('profile');
     }
 }

@@ -99,11 +99,6 @@ export default {
         resetList() {
             this.$inertia.get(route('dashboard'));
         },
-        // searchCompany() {
-        //     this.$inertia.get(`dashboard?search=${this.search}`, {}, {
-        //         preserveState: true
-        //     });
-        // },
         deleteCompany(id) {
             this.$inertia.delete(route('companies.destroy', { 'company': id }), {
                 onBefore: () => confirm('Are you sure you want to delete this company?'),

@@ -98,6 +98,7 @@ export default {
                 search: this.search,
             }, {
                 preserveState: true,
+                replace: true
             });
         },
         deleteCompany(id) {

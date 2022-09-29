@@ -1,5 +1,6 @@
 # Nourishing Africa Assessment
 A simple CRUD system with user authentication and company management.
+![homepage](public/home.png)
 
 ## Technical Details
 1. Environment: **PHP 8.1**

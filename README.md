@@ -19,8 +19,13 @@ A simple CRUD system with user authentication and company management.
 1. Run `composer install`
 2. Run `composer run-script post-root-package-install` to create your `.env` file
 3. Run `php artisan key:generate` to generate your application key.
-4. Run `php artisan serve` to start the server.
-5. For frontend changes, run `npm run dev`. To deploy, run `npm run build`
+4. Run `php artisan migrate --seed`
+   1. Countries are seeded into the database by default because they use a public API (restcountries.com).
+5. Run `php artisan serve` to start the server.
+6. For frontend changes, run `npm run dev`. To deploy, run `npm run build`.
+7. For fake data:
+   1. Users: `php artisan db:seed --class=UserSeeder`
+   2. Companies: `php artisan db:seed --class=CompanySeeder`
 
 ## Issues
 1. Mailing (not included in assessment requirements).

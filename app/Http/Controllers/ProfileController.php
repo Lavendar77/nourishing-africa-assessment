@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateProfilePasswordRequest;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Models\Country;
 use Inertia\Inertia;
@@ -39,6 +40,26 @@ class ProfileController extends Controller
         ]);
 
         session()->flash('message', 'Profile updated successfully');
+
+        return redirect()->route('profile');
+    }
+
+    /**
+     * Update user password.
+     *
+     * @param \App\Http\Requests\UpdateProfilePasswordRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function updatePassword(UpdateProfilePasswordRequest $request)
+    {
+        /** @var \App\Models\User $user */
+        $user = $request->user();
+
+        $user->update([
+            'password' => bcrypt($request->new_password),
+        ]);
+
+        session()->flash('message', 'Password updated successfully');
 
         return redirect()->route('profile');
     }

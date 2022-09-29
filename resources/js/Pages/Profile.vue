@@ -56,6 +56,36 @@
                             </div>
                         </form>
                     </div>
+
+                    <div class="p-6 bg-white border-b border-gray-200">
+                        <h1 class="font-bold text-xl mb-4 text-center text-gray-800">Update your Password</h1>
+
+                        <form @submit.prevent="updatePassword">
+                            <div class="mt-4">
+                                <InputLabel for="old_password" value="Old Password" />
+                                <TextInput id="old_password" type="password" class="mt-1 block w-full" v-model="passwordForm.old_password" required />
+                                <InputError class="mt-2" :message="passwordForm.errors.old_password" />
+                            </div>
+
+                            <div class="mt-4">
+                                <InputLabel for="new_password" value="New Password" />
+                                <TextInput id="new_password" type="password" class="mt-1 block w-full" v-model="passwordForm.new_password" required autocomplete="new-password" />
+                                <InputError class="mt-2" :message="passwordForm.errors.new_password" />
+                            </div>
+
+                            <div class="mt-4">
+                                <InputLabel for="new_password_confirmation" value="Confirm New Password" />
+                                <TextInput id="new_password_confirmation" type="password" class="mt-1 block w-full" v-model="passwordForm.new_password_confirmation" required autocomplete="new-password" />
+                                <InputError class="mt-2" :message="passwordForm.errors.new_password_confirmation" />
+                            </div>
+
+                            <div class="flex items-center justify-end mt-4">
+                                <PrimaryButton class="ml-4" :class="{ 'opacity-25': passwordForm.processing }" :disabled="passwordForm.processing">
+                                    Update Password
+                                </PrimaryButton>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -72,7 +102,6 @@ import TextInput from '@/Components/TextInput.vue';
 import SelectInput from '@/Components/SelectInput.vue';
 import Alert from '@/Components/Alert.vue';
 import { Head, useForm, usePage } from '@inertiajs/inertia-vue3';
-import { computed } from 'vue';
 
 const profileForm = useForm({
     country_id: usePage().props.value.auth.user.country_id,
@@ -81,7 +110,20 @@ const profileForm = useForm({
     mobile: usePage().props.value.auth.user.mobile,
 });
 
+const passwordForm = useForm({
+    old_password: '',
+    new_password: '',
+    new_password_confirmation: '',
+});
+
 const updateProfile = () => {
     profileForm.put(route('profile.update'));
-}
+};
+
+const updatePassword = () => {
+    passwordForm.post(route('profile.password.update'), {
+        onBefore: () => confirm('Are you sure you want to change your password?'),
+        onSuccess: () => passwordForm.reset(),
+    });
+};
 </script>

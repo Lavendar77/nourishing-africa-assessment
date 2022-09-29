@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class DashboardController extends Controller
@@ -25,12 +26,17 @@ class DashboardController extends Controller
             ->withTrashed()
             ->when(
                 $request->query('search'),
-                fn ($query) => $query->where('name', 'LIKE', "%{$request->query('search')}%")
-            )
-            ->get();
+                fn ($query) => $query->where(
+                    DB::raw('LOWER(name)'),
+                    'LIKE',
+                    '%' . strtolower($request->query('search')) . '%'
+                )
+            );
+
+        info($companies->toSql());
 
         return Inertia::render('Dashboard', [
-            'companies' => $companies,
+            'companies' => $companies->get(),
         ]);
     }
 }

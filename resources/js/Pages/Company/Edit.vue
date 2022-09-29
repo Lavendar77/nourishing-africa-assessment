@@ -65,30 +65,16 @@ import { Head, useForm, usePage } from '@inertiajs/inertia-vue3';
 import { computed } from '@vue/runtime-core';
 
 const form = useForm({
-    country_id: '',
-    name: '',
-    email: '',
+    country_id: usePage().props.value.company.country_id,
+    name: usePage().props.value.company.name,
+    email: usePage().props.value.company.email,
 });
 
 const company = computed(() => usePage().props.value.company);
-</script>
 
-<script>
-export default {
-    methods: {
-        fillForm() {
-            this.form.country_id = this.company.country_id;
-            this.form.name = this.company.name;
-            this.form.email = this.company.email;
-        },
-        update() {
-            this.form.put(route('companies.update', { 'company': this.company.id }), {
-                onSuccess: () => this.form.reset(),
-            });
-        }
-    },
-    mounted() {
-        this.fillForm();
-    }
+const update = () => {
+    form.put(route('companies.update', { 'company': usePage().props.value.company.id }), {
+        onSuccess: () => form.reset(),
+    });
 }
 </script>

@@ -75,30 +75,13 @@ import { Head, useForm, usePage } from '@inertiajs/inertia-vue3';
 import { computed } from 'vue';
 
 const profileForm = useForm({
-    country_id: '',
-    name: '',
-    email: '',
-    mobile: '',
+    country_id: usePage().props.value.auth.user.country_id,
+    name: usePage().props.value.auth.user.name,
+    email: usePage().props.value.auth.user.email,
+    mobile: usePage().props.value.auth.user.mobile,
 });
 
-const user = computed(() => usePage().props.value.auth.user);
-</script>
-
-<script>
-export default {
-    methods: {
-        fillProfileForm() {
-            this.profileForm.country_id = this.user.country_id;
-            this.profileForm.name = this.user.name;
-            this.profileForm.mobile = this.user.mobile;
-            this.profileForm.email = this.user.email;
-        },
-        updateProfile() {
-            this.profileForm.put(route('profile.update'));
-        }
-    },
-    mounted() {
-        this.fillProfileForm();
-    }
+const updateProfile = () => {
+    profileForm.put(route('profile.update'));
 }
 </script>

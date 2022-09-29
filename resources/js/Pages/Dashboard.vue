@@ -20,7 +20,7 @@
                         </h1>
 
                         <form @submit.prevent="searchCompany" class="my-4 flex flex-wrap items-stretch w-full mb-4 relative">
-                            <TextInput type="text" class="flex-shrink flex-grow flex-auto leading-normal w-px flex-1 border h-10 border-grey-light rounded rounded-r-none px-3 relative" v-model="search" placeholder="Search a company..." required />
+                            <TextInput type="search" class="flex-shrink flex-grow flex-auto leading-normal w-px flex-1 border h-10 border-grey-light rounded rounded-r-none px-3 relative" v-model="searchForm.search" placeholder="Search a company..." required />
                             <div class="flex -mr-px">
                                 <span class="flex items-center leading-normal bg-grey-lighter border border-l-0 border-grey-light px-3 whitespace-no-wrap text-grey-dark text-sm">
                                     <button type="submit">Search</button>
@@ -81,10 +81,16 @@ import Alert from '@/Components/Alert.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
 import TextInput from '@/Components/TextInput.vue';
-import { ref } from 'vue';
 
-const search = ref(null);
+const searchForm = useForm({
+    search: ''
+});
 
+const searchCompany = () => {
+    searchForm.get(route('dashboard'), {
+        preserveState: true,
+    });
+};
 </script>
 
 <script>
@@ -93,13 +99,11 @@ export default {
         resetList() {
             this.$inertia.get(route('dashboard'));
         },
-        searchCompany() {
-            this.$inertia.get(route('dashboard'), {
-                search: this.search,
-            }, {
-                preserveState: true
-            });
-        },
+        // searchCompany() {
+        //     this.$inertia.get(`dashboard?search=${this.search}`, {}, {
+        //         preserveState: true
+        //     });
+        // },
         deleteCompany(id) {
             this.$inertia.delete(route('companies.destroy', { 'company': id }), {
                 onBefore: () => confirm('Are you sure you want to delete this company?'),

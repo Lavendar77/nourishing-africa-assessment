@@ -13,7 +13,7 @@ A simple CRUD system with user authentication and company management.
 1. Environment: **PHP Version >= 8.0**
 2. Backend: **Laravel 9**
 3. Frontend: **Inertia.js with Vue 3**
-4. Database: **MySQL (default)**. Used on **Postgres** on test server.
+4. Database: **MySQL (default)**. Used **Postgres** on test server.
 
 ## Development Setup and Installation
 1. Run `composer install`

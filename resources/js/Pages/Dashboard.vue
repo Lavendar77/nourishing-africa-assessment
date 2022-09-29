@@ -97,8 +97,7 @@ export default {
             this.$inertia.get(route('dashboard'), {
                 search: this.search,
             }, {
-                preserveState: true,
-                replace: true
+                preserveState: true
             });
         },
         deleteCompany(id) {

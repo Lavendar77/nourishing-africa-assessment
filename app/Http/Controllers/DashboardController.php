@@ -19,8 +19,6 @@ class DashboardController extends Controller
         /** @var \App\Models\User $user */
         $user = auth()->user();
 
-        session()->flash('message', $request->query('search'));
-
         $companies = $user->companies()
             ->with('country:id,name')
             ->withTrashed()
@@ -32,8 +30,6 @@ class DashboardController extends Controller
                     '%' . strtolower($request->query('search')) . '%'
                 )
             );
-
-        info($companies->toSql());
 
         return Inertia::render('Dashboard', [
             'companies' => $companies->get(),

@@ -27,5 +27,5 @@ A simple CRUD system with user authentication and company management.
    1. Users: `php artisan db:seed --class=UserSeeder`
    2. Companies: `php artisan db:seed --class=CompanySeeder`
 
-## Issues
+## TO-DO
 1. Mailing (not included in assessment requirements).

@@ -18,10 +18,15 @@ class DashboardController extends Controller
         /** @var \App\Models\User $user */
         $user = auth()->user();
 
+        session()->flash('message', $request->query('search'));
+
         $companies = $user->companies()
             ->with('country:id,name')
             ->withTrashed()
-            ->when($request->search, fn ($query) => $query->where('name', 'LIKE', "%{$request->search}%"))
+            ->when(
+                $request->query('search'),
+                fn ($query) => $query->where('name', 'LIKE', "%{$request->query('search')}%")
+            )
             ->get();
 
         return Inertia::render('Dashboard', [
